@@ -1,0 +1,12 @@
+class Base_connection(object):
+	def __new__(type,model):
+		print "Wszedlem do laczenia z baza"
+		if not '_instancja' in type.__dict__:
+        		type._instancja = object.__new__(type)
+		
+	def __init__(self):
+		try:
+            		return PyTango.DeviceProxy(model)
+       		except PyTango.DevFailed, e:
+          		print 'Prepare Model ---> Received a DevFailed exception:',e
+		

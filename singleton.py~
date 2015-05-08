@@ -1,0 +1,24 @@
+import PyTango
+class Singleton(object):
+    def __init__(model):
+      #if not '_instancja' in type.__dict__:
+        #type._instancja = object.__new__(type)
+	#return type._instancja
+    	try:
+      		return PyTango.DeviceProxy(model)
+    	except PyTango.DevFailed, e:
+      		print 'Prepare Model ---> Received a DevFailed exception:',e
+
+# przyklad
+a=Singleton("test")
+a.cos = 1234
+print id(a)
+b=Singleton("test1")
+print id(b)
+print b.cos
+
+b.cos = 4321
+print a.cos
+
+# TAKIE SAME, ta sama instancja klasy
+print id(a),id(b)
